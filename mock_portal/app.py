@@ -1,12 +1,30 @@
 """Portal do gestor SIMULADO (só para o protótipo). Rodar: uvicorn mock_portal.app:app --port 8000"""
 from html import escape
+import sqlite3
+from contextlib import closing
 
 from fastapi import FastAPI, Form
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
+from config import settings
 
 app = FastAPI(title="Portal do Gestor (simulado)")
-_TICKETS: dict = {}
+
+def _connect():
+    settings.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(settings.OUTPUT_DIR / "portal.db")
+    conn.row_factory = sqlite3.Row
+    conn.execute("""CREATE TABLE IF NOT EXISTS chamados (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, protocolo TEXT UNIQUE NOT NULL,
+        categoria TEXT, prioridade TEXT, endereco TEXT, descricao TEXT)""")
+    conn.commit()
+    return conn
+
+
+def _ticket(row):
+    result = dict(row)
+    result["ticket"] = f"TK-{result.pop('id'):05d}"
+    return result
 
 _FORM = """<!doctype html><html lang="pt-BR"><meta charset="utf-8"><title>Novo chamado</title>
 <body><h1>Portal do Gestor - Novo chamado</h1>
@@ -32,9 +50,13 @@ class Chamado(BaseModel):
 
 def _create(data: dict) -> dict:
     # Idempotência: mesmo protocolo devolve o mesmo chamado (não duplica).
-    if data["protocolo"] not in _TICKETS:
-        _TICKETS[data["protocolo"]] = {"ticket": f"TK-{len(_TICKETS) + 1:05d}", **data}
-    return _TICKETS[data["protocolo"]]
+    with closing(_connect()) as conn, conn:
+        conn.execute("""INSERT OR IGNORE INTO chamados
+            (protocolo,categoria,prioridade,endereco,descricao) VALUES (?,?,?,?,?)""",
+            tuple(data.get(k, "") for k in
+                  ("protocolo", "categoria", "prioridade", "endereco", "descricao")))
+        return _ticket(conn.execute("SELECT * FROM chamados WHERE protocolo=?",
+                                    (data["protocolo"],)).fetchone())
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -49,11 +71,12 @@ def home():
 
 @app.get("/painel", response_class=HTMLResponse)
 def painel():
+    tickets = list_tickets()
     rows = "".join(
         f"<tr><td>{escape(t['ticket'])}</td><td>{escape(t['protocolo'])}</td><td>{escape(t['categoria'])}</td>"
         f"<td>{escape(t['prioridade'])}</td><td>{escape(t.get('endereco') or '')}</td>"
-        f"<td>{escape(t.get('descricao') or '')}</td></tr>" for t in _TICKETS.values())
-    vazio = "" if _TICKETS else "<p>Nenhum chamado ainda. Rode o robô (python main.py) com o portal no ar.</p>"
+        f"<td>{escape(t.get('descricao') or '')}</td></tr>" for t in tickets)
+    vazio = "" if tickets else "<p>Nenhum chamado ainda. Rode o robô (python main.py) com o portal no ar.</p>"
     return ('<!doctype html><meta charset="utf-8"><title>Painel</title><h1>Chamados registrados</h1>' + vazio +
             '<table border=1 cellpadding=6><tr><th>Chamado</th><th>Protocolo</th><th>Categoria</th>'
             f"<th>Prioridade</th><th>Endereço</th><th>Descrição</th></tr>{rows}</table>")
@@ -100,4 +123,5 @@ def api_submit(c: Chamado):
 
 @app.get("/chamados")
 def list_tickets():
-    return list(_TICKETS.values())
+    with closing(_connect()) as conn:
+        return [_ticket(row) for row in conn.execute("SELECT * FROM chamados ORDER BY id")]

@@ -103,5 +103,8 @@ class Store:
     def all_occurrences(self) -> list:
         return [dict(r) for r in self.conn.execute("SELECT * FROM ocorrencias ORDER BY criado_em")]
 
+    def all_reports(self) -> list:
+        return [dict(r) for r in self.conn.execute("SELECT * FROM relatos ORDER BY criado_em")]
+
     def review_queue(self) -> list:
         return [dict(r) for r in self.conn.execute("SELECT * FROM relatos WHERE status='em_revisao' ORDER BY criado_em")]

@@ -31,7 +31,7 @@ python scripts/generate_synthetic.py      # gera dados sintéticos + caixa de en
 python main.py --demo                     # sobe o portal simulado, processa tudo e gera relatórios
 python main.py --manter-portal            # idem, e deixa o portal aberto para você ver no navegador
 ```
-Outros comandos: `python main.py --consultar BED-XXXXXXXXXX` (morador acompanha) · `--perguntar "texto"` (assistente) · `--sem-portal` · `--treinar` · `--demo --loop 10` (repete a cada 10 min, sem intervenção) · `python scripts/evaluate.py` (validação) · `python scripts/capturar_prints.py` (prints do painel e do relatório em `docs/evidencias/prints/`) · `python -m pytest -q` (15 testes).
+Outros comandos: `python main.py --consultar BED-XXXXXXXXXX` (morador acompanha) · `--perguntar "texto"` (assistente) · `--sem-portal` · `--treinar` · `--demo --loop 10` (repete a cada 10 min, sem intervenção) · `python scripts/evaluate.py` (validação) · `python scripts/capturar_prints.py` (prints do painel e do relatório em `docs/evidencias/prints/`) · `python -m pytest -q` (20 testes).
 
 **Saídas** (pasta `output/`): `painel_gestor.html` (painel visual do gestor), `relatorio_execucao.html/.json`, `fila_revisao_humana.csv`, `painel_gestor.xlsx`, `comprovantes/`, `execucao.log`.
 
@@ -40,7 +40,7 @@ Nenhuma chave é necessária para rodar. Para o assistente reescrever respostas 
 Para transcrição de áudio local (gratuita), `pip install faster-whisper` e `ENABLE_ASR=1`; se falhar, o relato vai para revisão humana.
 
 ## Guia de testes (Groq, áudio e portal)
-- **Painel do gestor (visual):** abra `output/painel_gestor.html` no navegador depois de qualquer execução (nenhum servidor necessário). Ao vivo: `python main.py --manter-portal` e acesse `http://127.0.0.1:8000/gestor` (atualiza sozinho a cada 10 s); `/painel` mostra os chamados criados no sistema do órgão e `/novo` o formulário que o robô preenche. Aperte ENTER no terminal para encerrar. Com só `--demo` o portal fecha quando o robô termina. Se os painéis vierem vazios, apague `output/` e rode de novo (relatos já processados não são reenviados). O painel é somente leitura.
+- **Painel do gestor (visual):** abra `output/painel_gestor.html` no navegador depois de qualquer execução (nenhum servidor necessário). Ao vivo: `python main.py --manter-portal` e acesse `http://127.0.0.1:8000/gestor` (atualiza sozinho a cada 10 s); `/painel` mostra os chamados criados no sistema do órgão e `/novo` o formulário que o robô preenche. Aperte ENTER no terminal para encerrar. Com só `--demo` o portal fecha quando o robô termina. Os chamados do portal ficam em `output/portal.db` e permanecem após reiniciar o programa. Para reiniciar a demonstração do zero, pare o portal e remova `output/` (isso apaga protocolos, chamados e relatórios). Após atualizar uma execução da versão antiga, que guardava chamados apenas em memória, reinicie a demonstração do zero uma vez. O painel é somente leitura.
 - **Robô visível:** em `.env`, `PLAYWRIGHT_HEADLESS=0` e `PLAYWRIGHT_SLOW_MO_MS=700` (abre uma janela do Chromium preenchendo o formulário).
 - **Groq:** `GROQ_API_KEY` no `.env` e `python main.py --perguntar "tem barulho de bar na minha rua"`; a última linha indica se foi o LLM ou a base.
 - **Áudio:** `pip install faster-whisper`, `ENABLE_ASR=1`, troque `data/inbox/anexos/relato_012.wav` por uma gravação sua (a do repositório é um arquivo de mentira) e rode `python main.py --demo`.
@@ -55,9 +55,9 @@ Classificador treinado em 500 relatos sintéticos. Detalhes, matrizes de confus�
 |---|---|---|---|
 | Gerado (mesmo gerador do treino) | 100 | 1,00 | **otimista**: mesmos gabaritos do treino |
 | Manual, desenvolvimento | 40 | 1,00 (v1: 0,55) | usado para ajustar o gerador; **otimista** |
-| **Manual, final (não usado no ajuste)** | **40** | **0,95** (38/40) (v1: 0,70) | **número imparcial**, mas pequeno e escrito pelo próprio grupo |
+| **Manual, final (não usado no ajuste)** | **40** | **0,95** (38/40) (v1: 0,70) | amostra pequena, escrita pelo próprio grupo; não é validação externa independente |
 
-No conjunto final, com limiar de confiança 0,55, 25% dos relatos vão para revisão humana e os 75% resolvidos sozinhos tiveram 100% de acerto. Os 2 erros: "vala sem tampar" (buraco → lixo) e "cachorros latindo" (ruído → iluminação), ambos com confiança < 0,5.
+No conjunto final, com limiar de confiança 0,55, **40% (16/40)** são encaminhados por baixa confiança **ou categoria `outros`**. Os **60% (24/40) elegíveis à automação** tiveram 100% de acerto. Essa medição considera somente texto e classificação: falta de localização e falhas de anexos também podem exigir revisão no fluxo completo. A baixa confiança isolada corresponde a 25% (10/40), mas não representa toda a revisão humana. Os 2 erros: "vala sem tampar" (buraco → lixo) e "cachorros latindo" (ruído → iluminação), ambos com confiança < 0,5.
 **Limites:** dados sintéticos; 40 frases por conjunto (cada erro = 2,5 p.p., sem intervalo de confiança); desempenho em texto real de moradores deve ser pior.
 
 ### Falhas tratadas e demonstradas (`docs/evidencias/`)
@@ -66,6 +66,8 @@ No conjunto final, com limiar de confiança 0,55, 25% dos relatos vão para revi
 | JSON corrompido / sem texto / coordenada inválida | `rejeitado` com motivo no log e no relatório; lote continua | `execucao*_relatorio.json` |
 | Portal fora do ar | 3 tentativas com espera (backoff); **disjuntor** não martela o portal; ocorrências ficam `portal_pendente` | `execucao1_portal_fora_do_ar.txt` |
 | Portal volta | reexecução envia só as pendentes; **nada é duplicado** (idempotência) | `execucao2_portal_no_ar.txt` |
+| Portal reiniciado | chamados preservados em SQLite, sem duplicação | `tests/test_delivery_fixes.py` |
+| Falha ao gerar comprovante | registra `comprovante_pendente` e recupera em outra execução, mesmo sem a entrada original | `tests/test_delivery_fixes.py` |
 | Relato repetido (mesmo id e texto) | `ja_processado` | idem |
 | Áudio sem transcrição / baixa confiança / fora do escopo | **fila de revisão humana** + comprovante ao morador | `fila_revisao_humana.csv` |
 | Navegador indisponível | cai para HTTP | `src/rpa_portal.py` |
@@ -78,7 +80,7 @@ src/               ingest · nlp · attachments · classifier · priority · ded
                    assistant · dashboard · report · pipeline · utils/(logger, resilience)
 mock_portal/       portal do gestor simulado (FastAPI)
 scripts/           generate_synthetic.py · evaluate.py · capturar_prints.py
-data/              knowledge/ · synthetic/ · inbox/        tests/  15 testes        docs/  quadro, ética/ODS, resultados, evidências
+data/              knowledge/ · synthetic/ · inbox/        tests/  20 testes        docs/  quadro, ética/ODS, resultados, evidências
 ```
 
 ## Proteção de dados, ética e ODS

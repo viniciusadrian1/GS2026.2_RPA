@@ -1,6 +1,6 @@
 # Resultados de validação — classificador de relatos
 
-Treino: `treino.csv` (400 relatos sintéticos). Todos os dados são sintéticos.
+Treino: `treino.csv` (500 relatos sintéticos). Todos os dados são sintéticos.
 
 ## Teste gerado (mesmo gerador, outra semente) (n=100)
 
@@ -35,14 +35,14 @@ real:outros                0                0          0           0           2
 Erros (0):
 
 
-Limiar de confiança -> % enviado à revisão humana | acurácia do que o robô resolve sozinho
+Revisão por baixa confiança OU categoria `outros`; acurácia entre os elegíveis à automação. Esta avaliação textual não considera localização nem falhas de anexos, que também podem exigir revisão.
 
 | limiar | revisão humana | acurácia automática |
 |---|---|---|
-| 0.00 | 0% | 1.000 |
-| 0.40 | 0% | 1.000 |
-| 0.55 | 0% | 1.000 |
-| 0.70 | 1% | 1.000 |
+| 0.00 | 20% | 1.000 |
+| 0.40 | 20% | 1.000 |
+| 0.55 | 20% | 1.000 |
+| 0.70 | 21% | 1.000 |
 
 ## Teste manual / DESENVOLVIMENTO (escrito à mão; usado para ajustar o gerador) (n=40)
 
@@ -77,14 +77,14 @@ real:outros                0                0          0           0            
 Erros (0):
 
 
-Limiar de confiança -> % enviado à revisão humana | acurácia do que o robô resolve sozinho
+Revisão por baixa confiança OU categoria `outros`; acurácia entre os elegíveis à automação. Esta avaliação textual não considera localização nem falhas de anexos, que também podem exigir revisão.
 
 | limiar | revisão humana | acurácia automática |
 |---|---|---|
-| 0.00 | 0% | 1.000 |
-| 0.40 | 2% | 1.000 |
-| 0.55 | 5% | 1.000 |
-| 0.70 | 22% | 1.000 |
+| 0.00 | 20% | 1.000 |
+| 0.40 | 22% | 1.000 |
+| 0.55 | 25% | 1.000 |
+| 0.70 | 40% | 1.000 |
 
 ## Teste FINAL (escrito à mão, não usado no ajuste) (n=40)
 
@@ -121,14 +121,14 @@ Erros (2):
 - real=`buraco` predito=`lixo` (conf 0.42): Depois da obra da companhia de gás ficou uma vala sem tampar na calçada
 - real=`ruido` predito=`iluminacao` (conf 0.47): Cachorros latindo sem parar o dia inteiro e o dono não resolve
 
-Limiar de confiança -> % enviado à revisão humana | acurácia do que o robô resolve sozinho
+Revisão por baixa confiança OU categoria `outros`; acurácia entre os elegíveis à automação. Esta avaliação textual não considera localização nem falhas de anexos, que também podem exigir revisão.
 
 | limiar | revisão humana | acurácia automática |
 |---|---|---|
-| 0.00 | 0% | 0.950 |
-| 0.40 | 0% | 0.950 |
-| 0.55 | 25% | 1.000 |
-| 0.70 | 42% | 1.000 |
+| 0.00 | 20% | 0.938 |
+| 0.40 | 20% | 0.938 |
+| 0.55 | 40% | 1.000 |
+| 0.70 | 57% | 1.000 |
 
 ## Evolução
 
@@ -140,6 +140,6 @@ Limiar de confiança -> % enviado à revisão humana | acurácia do que o robô 
 ## Limites
 
 - O teste gerado usa os mesmos gabaritos do treino: o número tende a ser otimista.
-- O manual (dev) informou o vocabulário do gerador v2: seu número também é otimista. Só o FINAL é imparcial.
+- O manual (dev) informou o vocabulário do gerador v2: seu número também é otimista. O FINAL foi escrito pelo grupo e não equivale a validação externa independente.
 - Os testes manuais (40 frases cada) são pequenos: cada erro pesa 2,5 pontos percentuais; não há intervalo de confiança.
 - Nenhum dado real de moradores foi usado; o desempenho em texto real pode ser pior.

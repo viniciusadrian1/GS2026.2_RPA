@@ -33,7 +33,25 @@ class Pipeline:
         linhas = [f"PROTOCOLO: {protocolo}", f"Categoria: {categoria}", f"Prioridade: {prio}", f"Situação: {status}"]
         if motivo:
             linhas.append(f"Observação: um atendente vai analisar seu relato ({motivo}).")
-        (d / f"{protocolo}.txt").write_text("\n".join(linhas) + "\n\nOrientação:\n" + orient + "\n", encoding="utf-8")
+        temporary = d / f"{protocolo}.tmp"
+        temporary.write_text("\n".join(linhas) + "\n\nOrientação:\n" + orient + "\n", encoding="utf-8")
+        temporary.replace(d / f"{protocolo}.txt")
+
+    def _recover_receipts(self):
+        """Conclui a saída independentemente de a entrada ainda existir na inbox."""
+        for row in self.store.all_reports():
+            protocolo = row["protocolo"]
+            path = settings.OUTPUT_DIR / "comprovantes" / f"{protocolo}.txt"
+            try:
+                if path.exists() and path.stat().st_size:
+                    continue
+                status = "em análise por atendente" if row["status"] == "em_revisao" else "em andamento"
+                self._comprovante(protocolo, row["categoria"], row["prioridade"], status,
+                                  row["texto_mascarado"], row["motivo_revisao"])
+                self._event(protocolo, "comprovante_gerado", protocolo)
+            except Exception as exc:
+                log.exception("Comprovante pendente: %s", protocolo)
+                self._event(protocolo, "comprovante_pendente", protocolo, str(exc))
 
     # ------------------------------------------------------------- um relato
     def process_file(self, path: Path):
@@ -84,7 +102,6 @@ class Pipeline:
         if reasons:
             row.update(status="em_revisao", motivo_revisao=";".join(reasons))
             self.store.insert_report(row)
-            self._comprovante(protocolo, cat, prio, "em análise por atendente", text, row["motivo_revisao"])
             return self._event(nome, "revisao_humana", protocolo, row["motivo_revisao"])
 
         occ = self.store.find_occurrence(cat, rep.lat, rep.lon, endereco)
@@ -95,7 +112,6 @@ class Pipeline:
             oid, novo = self.store.create_occurrence(protocolo, cat, prio, rep.lat, rep.lon, endereco, rep.created_at), True
         row.update(ocorrencia_id=oid, status="em_andamento")
         self.store.insert_report(row)
-        self._comprovante(protocolo, cat, prio, "em andamento", text)
         self._event(nome, "ocorrencia_nova" if novo else "agrupado_em_existente", protocolo,
                     f"{oid} cat={cat} conf={conf:.2f} prio={prio}")
 
@@ -132,6 +148,7 @@ class Pipeline:
                 log.exception("Erro inesperado em %s", f.name)
                 self._event(f.name, "erro_inesperado", detalhe=repr(exc))
         self._push_to_portal()
+        self._recover_receipts()
         summary = {"arquivos_lidos": len(files), **{k: v for k, v in sorted(self.counts.items())},
                    "modo_robo": getattr(self.robot, "mode", "desligado") if self.robot else "desligado",
                    "duracao_s": round(time.time() - t0, 2)}
