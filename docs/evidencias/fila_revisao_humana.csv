@@ -1,0 +1,4 @@
+protocolo,categoria_sugerida,confianca,motivo,endereco,texto_mascarado
+BED-914D133A3D,outros,0.96,fora_do_escopo,,"Quero saber como tirar a segunda via do IPTU. Telefone [TELEFONE], CPF [CPF]."
+BED-1EB56A34B3,outros,0.41,baixa_confianca(0.41);fora_do_escopo,,Tem um problema aqui perto de casa que precisa ser resolvido logo.
+BED-7098464C6D,outros,0,audio_sem_transcricao;baixa_confianca(0.00);fora_do_escopo,,

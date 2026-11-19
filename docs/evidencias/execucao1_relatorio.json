@@ -1,0 +1,141 @@
+{
+  "resumo": {
+    "arquivos_lidos": 15,
+    "agrupado_em_existente": 2,
+    "ja_processado": 1,
+    "ocorrencia_nova": 6,
+    "portal_pendente": 6,
+    "rejeitado": 3,
+    "revisao_humana": 3,
+    "modo_robo": "playwright",
+    "duracao_s": 1.2
+  },
+  "eventos": [
+    {
+      "arquivo": "r001.json",
+      "resultado": "ocorrencia_nova",
+      "protocolo": "BED-084D5AA033",
+      "detalhe": "OC-084D5AA0 cat=buraco conf=0.87 prio=media"
+    },
+    {
+      "arquivo": "r002.json",
+      "resultado": "agrupado_em_existente",
+      "protocolo": "BED-47243B5C4D",
+      "detalhe": "OC-084D5AA0 cat=buraco conf=0.97 prio=media"
+    },
+    {
+      "arquivo": "r003.json",
+      "resultado": "ocorrencia_nova",
+      "protocolo": "BED-C1D3E21234",
+      "detalhe": "OC-C1D3E212 cat=iluminacao conf=0.83 prio=urgente"
+    },
+    {
+      "arquivo": "r004.json",
+      "resultado": "ocorrencia_nova",
+      "protocolo": "BED-D05CF30842",
+      "detalhe": "OC-D05CF308 cat=lixo conf=0.93 prio=media"
+    },
+    {
+      "arquivo": "r005.json",
+      "resultado": "ocorrencia_nova",
+      "protocolo": "BED-47F138CCB8",
+      "detalhe": "OC-47F138CC cat=ruido conf=0.95 prio=media"
+    },
+    {
+      "arquivo": "r006.json",
+      "resultado": "revisao_humana",
+      "protocolo": "BED-914D133A3D",
+      "detalhe": "fora_do_escopo"
+    },
+    {
+      "arquivo": "r007.json",
+      "resultado": "revisao_humana",
+      "protocolo": "BED-1EB56A34B3",
+      "detalhe": "baixa_confianca(0.41);fora_do_escopo"
+    },
+    {
+      "arquivo": "r008_corrompido.json",
+      "resultado": "rejeitado",
+      "protocolo": null,
+      "detalhe": "JSON corrompido: Unterminated string starting at: line 1 column 25 (char 24)"
+    },
+    {
+      "arquivo": "r009_sem_texto.json",
+      "resultado": "rejeitado",
+      "protocolo": null,
+      "detalhe": "texto ausente/curto demais e sem áudio para transcrever"
+    },
+    {
+      "arquivo": "r010_coordenada_invalida.json",
+      "resultado": "rejeitado",
+      "protocolo": null,
+      "detalhe": "coordenadas fora do intervalo válido: 999.0, -46.6"
+    },
+    {
+      "arquivo": "r011.json",
+      "resultado": "ocorrencia_nova",
+      "protocolo": "BED-90B7B152FE",
+      "detalhe": "OC-90B7B152 cat=buraco conf=0.86 prio=media"
+    },
+    {
+      "arquivo": "r012_somente_audio.json",
+      "resultado": "revisao_humana",
+      "protocolo": "BED-7098464C6D",
+      "detalhe": "audio_sem_transcricao;baixa_confianca(0.00);fora_do_escopo"
+    },
+    {
+      "arquivo": "r013_duplicado_de_r001.json",
+      "resultado": "ja_processado",
+      "protocolo": "BED-084D5AA033",
+      "detalhe": "idempotência: nada duplicado"
+    },
+    {
+      "arquivo": "r014_com_foto.json",
+      "resultado": "ocorrencia_nova",
+      "protocolo": "BED-A2D2639665",
+      "detalhe": "OC-A2D26396 cat=buraco conf=0.89 prio=alta"
+    },
+    {
+      "arquivo": "r015.json",
+      "resultado": "agrupado_em_existente",
+      "protocolo": "BED-D823725575",
+      "detalhe": "OC-084D5AA0 cat=buraco conf=0.92 prio=media"
+    },
+    {
+      "arquivo": "OC-084D5AA0",
+      "resultado": "portal_pendente",
+      "protocolo": null,
+      "detalhe": "será reenviado na próxima execução"
+    },
+    {
+      "arquivo": "OC-C1D3E212",
+      "resultado": "portal_pendente",
+      "protocolo": null,
+      "detalhe": "será reenviado na próxima execução"
+    },
+    {
+      "arquivo": "OC-D05CF308",
+      "resultado": "portal_pendente",
+      "protocolo": null,
+      "detalhe": "será reenviado na próxima execução"
+    },
+    {
+      "arquivo": "OC-47F138CC",
+      "resultado": "portal_pendente",
+      "protocolo": null,
+      "detalhe": "será reenviado na próxima execução"
+    },
+    {
+      "arquivo": "OC-90B7B152",
+      "resultado": "portal_pendente",
+      "protocolo": null,
+      "detalhe": "será reenviado na próxima execução"
+    },
+    {
+      "arquivo": "OC-A2D26396",
+      "resultado": "portal_pendente",
+      "protocolo": null,
+      "detalhe": "será reenviado na próxima execução"
+    }
+  ]
+}

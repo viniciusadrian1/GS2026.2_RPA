@@ -1,0 +1,37 @@
+2026-11-17 22:59:28,065 | INFO    | main | Portal simulado no ar em http://127.0.0.1:8000
+2026-11-17 22:59:28,486 | INFO    | rpa | Robô em modo navegador (Playwright)
+2026-11-17 22:59:28,487 | INFO    | pipeline | Iniciando lote: 15 arquivo(s) em /home/claude/bairro-em-dia/data/inbox
+2026-11-17 22:59:28,505 | INFO    | pipeline | r001.json -> ja_processado BED-084D5AA033 idempotência: nada duplicado
+2026-11-17 22:59:28,512 | INFO    | pipeline | r002.json -> ja_processado BED-47243B5C4D idempotência: nada duplicado
+2026-11-17 22:59:28,513 | INFO    | pipeline | r003.json -> ja_processado BED-C1D3E21234 idempotência: nada duplicado
+2026-11-17 22:59:28,519 | INFO    | pipeline | r004.json -> ja_processado BED-D05CF30842 idempotência: nada duplicado
+2026-11-17 22:59:28,521 | INFO    | pipeline | r005.json -> ja_processado BED-47F138CCB8 idempotência: nada duplicado
+2026-11-17 22:59:28,522 | INFO    | pipeline | r006.json -> ja_processado BED-914D133A3D idempotência: nada duplicado
+2026-11-17 22:59:28,528 | INFO    | pipeline | r007.json -> ja_processado BED-1EB56A34B3 idempotência: nada duplicado
+2026-11-17 22:59:28,528 | INFO    | pipeline | r008_corrompido.json -> rejeitado  JSON corrompido: Unterminated string starting at: line 1 column 25 (char 24)
+2026-11-17 22:59:28,528 | INFO    | pipeline | r009_sem_texto.json -> rejeitado  texto ausente/curto demais e sem áudio para transcrever
+2026-11-17 22:59:28,528 | INFO    | pipeline | r010_coordenada_invalida.json -> rejeitado  coordenadas fora do intervalo válido: 999.0, -46.6
+2026-11-17 22:59:28,530 | INFO    | pipeline | r011.json -> ja_processado BED-90B7B152FE idempotência: nada duplicado
+2026-11-17 22:59:28,530 | WARNING | pipeline | r012_somente_audio.json: áudio não transcrito (ASR desativado (ENABLE_ASR=0))
+2026-11-17 22:59:28,530 | INFO    | pipeline | r012_somente_audio.json -> ja_processado BED-7098464C6D idempotência: nada duplicado
+2026-11-17 22:59:28,535 | INFO    | pipeline | r013_duplicado_de_r001.json -> ja_processado BED-084D5AA033 idempotência: nada duplicado
+2026-11-17 22:59:28,543 | INFO    | pipeline | r014_com_foto.json -> ja_processado BED-A2D2639665 idempotência: nada duplicado
+2026-11-17 22:59:28,544 | INFO    | pipeline | r015.json -> ja_processado BED-D823725575 idempotência: nada duplicado
+2026-11-17 22:59:28,836 | INFO    | pipeline | OC-084D5AA0 -> portal_registrado  TK-00001
+2026-11-17 22:59:29,202 | INFO    | pipeline | OC-C1D3E212 -> portal_registrado  TK-00002
+2026-11-17 22:59:29,467 | INFO    | pipeline | OC-D05CF308 -> portal_registrado  TK-00003
+2026-11-17 22:59:29,733 | INFO    | pipeline | OC-47F138CC -> portal_registrado  TK-00004
+2026-11-17 22:59:29,979 | INFO    | pipeline | OC-90B7B152 -> portal_registrado  TK-00005
+2026-11-17 22:59:30,210 | INFO    | pipeline | OC-A2D26396 -> portal_registrado  TK-00006
+
+=== RESUMO DA EXECUÇÃO ===
+{
+  "arquivos_lidos": 15,
+  "ja_processado": 12,
+  "portal_registrado": 6,
+  "rejeitado": 3,
+  "modo_robo": "playwright",
+  "duracao_s": 1.72
+}
+Relatórios: /home/claude/bairro-em-dia/output/relatorio_execucao.html
+Painel do gestor: /home/claude/bairro-em-dia/output/painel_gestor.html

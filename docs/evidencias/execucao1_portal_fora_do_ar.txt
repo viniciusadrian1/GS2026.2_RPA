@@ -1,0 +1,44 @@
+2026-11-17 22:59:22,699 | INFO    | rpa | Robô em modo navegador (Playwright)
+2026-11-17 22:59:22,699 | INFO    | pipeline | Iniciando lote: 15 arquivo(s) em /home/claude/bairro-em-dia/data/inbox
+2026-11-17 22:59:22,730 | INFO    | pipeline | r001.json -> ocorrencia_nova BED-084D5AA033 OC-084D5AA0 cat=buraco conf=0.87 prio=media
+2026-11-17 22:59:22,742 | INFO    | pipeline | r002.json -> agrupado_em_existente BED-47243B5C4D OC-084D5AA0 cat=buraco conf=0.97 prio=media
+2026-11-17 22:59:22,750 | INFO    | pipeline | r003.json -> ocorrencia_nova BED-C1D3E21234 OC-C1D3E212 cat=iluminacao conf=0.83 prio=urgente
+2026-11-17 22:59:22,755 | INFO    | pipeline | r004.json -> ocorrencia_nova BED-D05CF30842 OC-D05CF308 cat=lixo conf=0.93 prio=media
+2026-11-17 22:59:22,759 | INFO    | pipeline | r005.json -> ocorrencia_nova BED-47F138CCB8 OC-47F138CC cat=ruido conf=0.95 prio=media
+2026-11-17 22:59:22,762 | INFO    | pipeline | r006.json -> revisao_humana BED-914D133A3D fora_do_escopo
+2026-11-17 22:59:22,765 | INFO    | pipeline | r007.json -> revisao_humana BED-1EB56A34B3 baixa_confianca(0.41);fora_do_escopo
+2026-11-17 22:59:22,765 | INFO    | pipeline | r008_corrompido.json -> rejeitado  JSON corrompido: Unterminated string starting at: line 1 column 25 (char 24)
+2026-11-17 22:59:22,765 | INFO    | pipeline | r009_sem_texto.json -> rejeitado  texto ausente/curto demais e sem áudio para transcrever
+2026-11-17 22:59:22,766 | INFO    | pipeline | r010_coordenada_invalida.json -> rejeitado  coordenadas fora do intervalo válido: 999.0, -46.6
+2026-11-17 22:59:22,770 | INFO    | pipeline | r011.json -> ocorrencia_nova BED-90B7B152FE OC-90B7B152 cat=buraco conf=0.86 prio=media
+2026-11-17 22:59:22,770 | WARNING | pipeline | r012_somente_audio.json: áudio não transcrito (ASR desativado (ENABLE_ASR=0))
+2026-11-17 22:59:22,771 | INFO    | pipeline | r012_somente_audio.json -> revisao_humana BED-7098464C6D audio_sem_transcricao;baixa_confianca(0.00);fora_do_escopo
+2026-11-17 22:59:22,773 | INFO    | pipeline | r013_duplicado_de_r001.json -> ja_processado BED-084D5AA033 idempotência: nada duplicado
+2026-11-17 22:59:22,782 | INFO    | pipeline | r014_com_foto.json -> ocorrencia_nova BED-A2D2639665 OC-A2D26396 cat=buraco conf=0.89 prio=alta
+2026-11-17 22:59:22,787 | INFO    | pipeline | r015.json -> agrupado_em_existente BED-D823725575 OC-084D5AA0 cat=buraco conf=0.92 prio=media
+2026-11-17 22:59:22,869 | WARNING | resiliencia | [portal] falha transitória (1/3): portal fora do ar
+2026-11-17 22:59:23,230 | WARNING | resiliencia | [portal] falha transitória (2/3): portal fora do ar
+2026-11-17 22:59:23,899 | WARNING | resiliencia | [portal] falha transitória (3/3): portal fora do ar
+2026-11-17 22:59:23,899 | ERROR   | resiliencia | [portal] caminho seguro acionado
+2026-11-17 22:59:23,899 | ERROR   | pipeline | Disjuntor aberto: portal indisponível; demais ocorrências ficam pendentes
+2026-11-17 22:59:23,899 | INFO    | pipeline | OC-084D5AA0 -> portal_pendente  será reenviado na próxima execução
+2026-11-17 22:59:23,899 | INFO    | pipeline | OC-C1D3E212 -> portal_pendente  será reenviado na próxima execução
+2026-11-17 22:59:23,899 | INFO    | pipeline | OC-D05CF308 -> portal_pendente  será reenviado na próxima execução
+2026-11-17 22:59:23,899 | INFO    | pipeline | OC-47F138CC -> portal_pendente  será reenviado na próxima execução
+2026-11-17 22:59:23,899 | INFO    | pipeline | OC-90B7B152 -> portal_pendente  será reenviado na próxima execução
+2026-11-17 22:59:23,899 | INFO    | pipeline | OC-A2D26396 -> portal_pendente  será reenviado na próxima execução
+
+=== RESUMO DA EXECUÇÃO ===
+{
+  "arquivos_lidos": 15,
+  "agrupado_em_existente": 2,
+  "ja_processado": 1,
+  "ocorrencia_nova": 6,
+  "portal_pendente": 6,
+  "rejeitado": 3,
+  "revisao_humana": 3,
+  "modo_robo": "playwright",
+  "duracao_s": 1.2
+}
+Relatórios: /home/claude/bairro-em-dia/output/relatorio_execucao.html
+Painel do gestor: /home/claude/bairro-em-dia/output/painel_gestor.html

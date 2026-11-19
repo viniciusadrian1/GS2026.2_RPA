@@ -1,0 +1,138 @@
+{
+  "resumo": {
+    "arquivos_lidos": 15,
+    "ja_processado": 12,
+    "portal_registrado": 6,
+    "rejeitado": 3,
+    "modo_robo": "playwright",
+    "duracao_s": 1.72
+  },
+  "eventos": [
+    {
+      "arquivo": "r001.json",
+      "resultado": "ja_processado",
+      "protocolo": "BED-084D5AA033",
+      "detalhe": "idempotência: nada duplicado"
+    },
+    {
+      "arquivo": "r002.json",
+      "resultado": "ja_processado",
+      "protocolo": "BED-47243B5C4D",
+      "detalhe": "idempotência: nada duplicado"
+    },
+    {
+      "arquivo": "r003.json",
+      "resultado": "ja_processado",
+      "protocolo": "BED-C1D3E21234",
+      "detalhe": "idempotência: nada duplicado"
+    },
+    {
+      "arquivo": "r004.json",
+      "resultado": "ja_processado",
+      "protocolo": "BED-D05CF30842",
+      "detalhe": "idempotência: nada duplicado"
+    },
+    {
+      "arquivo": "r005.json",
+      "resultado": "ja_processado",
+      "protocolo": "BED-47F138CCB8",
+      "detalhe": "idempotência: nada duplicado"
+    },
+    {
+      "arquivo": "r006.json",
+      "resultado": "ja_processado",
+      "protocolo": "BED-914D133A3D",
+      "detalhe": "idempotência: nada duplicado"
+    },
+    {
+      "arquivo": "r007.json",
+      "resultado": "ja_processado",
+      "protocolo": "BED-1EB56A34B3",
+      "detalhe": "idempotência: nada duplicado"
+    },
+    {
+      "arquivo": "r008_corrompido.json",
+      "resultado": "rejeitado",
+      "protocolo": null,
+      "detalhe": "JSON corrompido: Unterminated string starting at: line 1 column 25 (char 24)"
+    },
+    {
+      "arquivo": "r009_sem_texto.json",
+      "resultado": "rejeitado",
+      "protocolo": null,
+      "detalhe": "texto ausente/curto demais e sem áudio para transcrever"
+    },
+    {
+      "arquivo": "r010_coordenada_invalida.json",
+      "resultado": "rejeitado",
+      "protocolo": null,
+      "detalhe": "coordenadas fora do intervalo válido: 999.0, -46.6"
+    },
+    {
+      "arquivo": "r011.json",
+      "resultado": "ja_processado",
+      "protocolo": "BED-90B7B152FE",
+      "detalhe": "idempotência: nada duplicado"
+    },
+    {
+      "arquivo": "r012_somente_audio.json",
+      "resultado": "ja_processado",
+      "protocolo": "BED-7098464C6D",
+      "detalhe": "idempotência: nada duplicado"
+    },
+    {
+      "arquivo": "r013_duplicado_de_r001.json",
+      "resultado": "ja_processado",
+      "protocolo": "BED-084D5AA033",
+      "detalhe": "idempotência: nada duplicado"
+    },
+    {
+      "arquivo": "r014_com_foto.json",
+      "resultado": "ja_processado",
+      "protocolo": "BED-A2D2639665",
+      "detalhe": "idempotência: nada duplicado"
+    },
+    {
+      "arquivo": "r015.json",
+      "resultado": "ja_processado",
+      "protocolo": "BED-D823725575",
+      "detalhe": "idempotência: nada duplicado"
+    },
+    {
+      "arquivo": "OC-084D5AA0",
+      "resultado": "portal_registrado",
+      "protocolo": null,
+      "detalhe": "TK-00001"
+    },
+    {
+      "arquivo": "OC-C1D3E212",
+      "resultado": "portal_registrado",
+      "protocolo": null,
+      "detalhe": "TK-00002"
+    },
+    {
+      "arquivo": "OC-D05CF308",
+      "resultado": "portal_registrado",
+      "protocolo": null,
+      "detalhe": "TK-00003"
+    },
+    {
+      "arquivo": "OC-47F138CC",
+      "resultado": "portal_registrado",
+      "protocolo": null,
+      "detalhe": "TK-00004"
+    },
+    {
+      "arquivo": "OC-90B7B152",
+      "resultado": "portal_registrado",
+      "protocolo": null,
+      "detalhe": "TK-00005"
+    },
+    {
+      "arquivo": "OC-A2D26396",
+      "resultado": "portal_registrado",
+      "protocolo": null,
+      "detalhe": "TK-00006"
+    }
+  ]
+}

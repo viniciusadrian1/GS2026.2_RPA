@@ -1,0 +1,23 @@
+[
+ {"id":"buraco","titulo":"Buraco ou afundamento na via","palavras_chave":"buraco cratera asfalto pista rua danificada pneu afundou",
+  "orgao":"Zeladoria Viária","prazo_ref":"5 a 15 dias úteis (valor fictício do protótipo)",
+  "como_solicitar":["Informe o endereço ou marque o ponto no mapa","Descreva o tamanho e o risco (ex.: pega a faixa toda)","Anexe uma foto, se possível","Guarde o número do protocolo para acompanhar"]},
+ {"id":"iluminacao","titulo":"Iluminação pública com defeito","palavras_chave":"poste lampada luz apagada escuro iluminacao luminaria piscando",
+  "orgao":"Iluminação Pública","prazo_ref":"3 a 10 dias úteis (valor fictício do protótipo)",
+  "como_solicitar":["Informe o endereço e, se houver, o número do poste","Diga se está apagada, piscando ou acesa de dia","Se houver fio exposto, trate como urgência e mantenha distância"]},
+ {"id":"lixo","titulo":"Lixo acumulado ou descarte irregular","palavras_chave":"lixo entulho cacamba coleta sofa colchao mau cheiro ratos",
+  "orgao":"Limpeza Urbana","prazo_ref":"2 a 7 dias úteis (valor fictício do protótipo)",
+  "como_solicitar":["Informe o endereço e o tipo de material (doméstico, entulho, volumoso)","Diga há quanto tempo está acumulado","Anexe foto sem pessoas ou placas de veículos"]},
+ {"id":"ruido","titulo":"Incômodo sonoro","palavras_chave":"barulho som alto musica festa bar obra madrugada sossego",
+  "orgao":"Fiscalização de Ruído","prazo_ref":"fiscalização por escala (valor fictício do protótipo)",
+  "como_solicitar":["Informe o endereço de ONDE vem o barulho","Registre dias e horários em que acontece","Relatos repetidos de vizinhos ajudam a priorizar a fiscalização"]},
+ {"id":"acompanhar","titulo":"Como acompanhar meu protocolo","palavras_chave":"acompanhar protocolo status andamento consultar numero",
+  "orgao":"Bairro em Dia","prazo_ref":"imediato",
+  "como_solicitar":["Use o número que começa com BED- recebido no comprovante","Consulte pelo app ou por: python main.py --consultar BED-XXXXXXXXXX"]},
+ {"id":"emergencia","titulo":"Situação de risco imediato","palavras_chave":"emergencia perigo risco acidente fogo incendio fio caido ferido socorro",
+  "orgao":"Serviços de emergência","prazo_ref":"imediato",
+  "como_solicitar":["Em risco à vida, ligue 190 (polícia), 192 (SAMU), 193 (bombeiros) ou 199 (Defesa Civil)","O Bairro em Dia NÃO substitui atendimento de emergência"]},
+ {"id":"outros","titulo":"Assuntos que não são zeladoria do bairro","palavras_chave":"iptu imposto conta agua luz internet onibus creche saude escola vizinho garagem",
+  "orgao":"Central de atendimento da prefeitura","prazo_ref":"depende do serviço",
+  "como_solicitar":["Procure o canal oficial da sua prefeitura (central telefônica, portal ou aplicativo)","Se não souber qual, comece pela central de atendimento ao cidadão"]}
+]
